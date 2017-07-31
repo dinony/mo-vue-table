@@ -1,4 +1,4 @@
 export {moBaseTable} from './baseTable'
-export {localTable} from './localTable'
-export {remoteTable} from './remoteTable'
-export {moToggleOrderBy} from './moToggleOrderBy'
+export {moLocalTable} from './localTable'
+export {moRemoteTable} from './remoteTable'
+export {moToggleOrderBy} from './toggleOrderBy'
