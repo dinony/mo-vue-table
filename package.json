@@ -7,5 +7,8 @@
     "build": "node build/build.js"
   },
   "author": "Onur Dogangönül",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mo-query": "^0.1.3"
+  }
 }
