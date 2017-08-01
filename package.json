@@ -11,6 +11,10 @@
     "lint:src": "eslint src",
     "lint:build": "eslint build"
   },
+  "files": [
+    "dist/*.js",
+    "dist/*.js.map"
+  ],
   "author": "Onur Dogangönül",
   "license": "MIT",
   "dependencies": {
