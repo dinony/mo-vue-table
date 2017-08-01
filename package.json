@@ -2,7 +2,9 @@
   "name": "mo-vue-table",
   "version": "0.1.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/mo-vue-table.cjs.js",
+  "module": "dist/mo-vue-table.esm.js",
+  "unpkg": "dist/mo-vue-table.js",
   "scripts": {
     "build": "node build/build.js",
     "lint": "npm run lint:src && npm run lint:build",
