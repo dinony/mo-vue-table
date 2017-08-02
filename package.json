@@ -7,14 +7,19 @@
   "unpkg": "dist/mo-vue-table.js",
   "scripts": {
     "build": "node build/build.js",
-    "lint": "npm run lint:src && npm run lint:build",
+    "lint": "npm run lint:src && npm run lint:build && npm run lint:demo",
     "lint:src": "eslint src",
-    "lint:build": "eslint build"
+    "lint:build": "eslint build",
+    "lint:demo": "eslint demo",
+    "serve:demo": "node tools/browserSync.js"
   },
   "files": [
     "dist/*.js",
     "dist/*.js.map"
   ],
+  "engines": {
+    "node": ">=6.10.3"
+  },
   "author": "Onur Dogangönül",
   "license": "MIT",
   "dependencies": {
@@ -27,6 +32,7 @@
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-do-expressions": "^6.22.0",
     "babel-preset-latest": "^6.24.1",
+    "browser-sync": "^2.18.13",
     "eslint": "^4.3.0",
     "pretty-bytes": "^4.0.2",
     "rimraf": "^2.6.1",
