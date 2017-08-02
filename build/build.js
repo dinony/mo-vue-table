@@ -23,8 +23,8 @@ const relPath = _path => path.relative(process.cwd(), _path)
 const uglifyConf = {};
 
 [
-  {dest: resolve('dist/mo-vue-table.js'), format: 'umd'},
-  {dest: resolve('dist/mo-vue-table.min.js'), format: 'umd'},
+  {dest: resolve('dist/mo-vue-table.umd.js'), format: 'umd'},
+  {dest: resolve('dist/mo-vue-table.umd.min.js'), format: 'umd'},
   {dest: resolve('dist/mo-vue-table.cjs.js'), format: 'cjs'},
   {dest: resolve('dist/mo-vue-table.esm.js'), format: 'es'}
 ].map(({dest, format}) => ({
