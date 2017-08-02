@@ -1,0 +1,41 @@
+.show {
+  float: right;
+}
+
+.players {
+  width: 100%;
+  border-spacing: 0px;
+  margin-bottom: 20px;
+}
+
+.players th {
+  width: 25%;
+  height: 30px;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 4px solid pink;
+}
+
+.players td {
+  padding: 10px;
+  border-bottom: 1px solid ;
+}
+
+.mo-asc::after {
+  content: '\25B2';
+  font-size: 9px;
+}
+
+.mo-desc::after {
+  content: '\25BC';
+  font-size: 9px;
+}
+
+.info {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+textarea {
+  width: 50%;
+}
