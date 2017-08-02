@@ -5,4 +5,4 @@ import PlayersTable from './PlayersTable/PlayersTable.js'
 
 Vue.component('players-table', PlayersTable)
 
-new Vue({el: '#app', data: {players}})
+const app = new Vue({el: '#app', data: {players}})

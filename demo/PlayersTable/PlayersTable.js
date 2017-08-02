@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce'
-import {moLocalTable} from 'mo-query'
+import {moLocalTable} from 'mo-vue-table'
 
 import './PlayersTable.css'
 
@@ -80,7 +80,6 @@ export default {
     filters: {
       handler: function(filters) {
         // TODO:
-
         this.moSetWhereState(query);
       },
       deep: true,
@@ -111,84 +110,85 @@ export default {
       immediate: true
     }
   },
-  template: `
-    <div>
-      <h1>Local Table</h1>
-      <div class="info">
-        <span v-for="column in columns">
-          <input type="checkbox" :value="column" v-model="select"> {{column}}
-        </span>
-        {{select}}
-      </div>
-      <div class="info show">
-        <span>Show</span>
-        <select v-model="limit">
-          <option v-for="limit in limits" :value="limit">{{limit}}</option>
-        </select>
-      </div>
-      <table class="players">
-        <thead>
-          <th v-mo-toggle-orderby="column[0]" :key="column[1]" v-for="column in moSelectedColumns"
-            :class="moColumnOrder(column[0]) !== null ? 'mo-' + moColumnOrder(column[0]) : ''">
-            {{column[0]}}
-          </th>
-        </thead>
-        <tbody>
-          <tr v-for="user in moDisplayed">
-            <td :key="column[1]" v-for="column in moSelectedColumns">{{user[column[0]]}}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="info">
-        <button @click="moPrevPage" :disabled="moCurPage <= 0">Prev</button>
-        <button @click="moNextPage" :disabled="moCurPage >= (moNumPages - 1)">Next</button>
-        <div>NumResults: {{moNumResults}}, NumPages: {{moNumPages}}, Current page: {{moCurPage}}</div>
-      </div>
-
-      <div class="info">
-        <button @click="addFilter">Add filter</button>
-
-        <div class="filter" v-for="(filter, index) in filters">
-          <select v-model="filter.left">
-            <option v-for="column in columns" :value="column">{{column}}</option>
-          </select>
-          <select v-model="filter.op">
-            <option v-for="op in ops" :value="op">{{op}}</option>
-          </select>
-
-          <span v-if="filtersDescr[filter.left] && filtersDescr[filter.left].type === 'number'">
-            <input v-model.number="filter.right" type="number">
-          </span>
-          <span v-else>
-            <input v-model="filter.right" type="text">
-          </span>
-          <button @click="filters.splice(index, 1)">x</button>
-        </div>
-      </div>
-
-      <div class="info">
-        <textarea v-model="cFilter" placeholder="Complex query" rows="10"></textarea>
-        <div v-if="syntaxErr !== null">
-          <p v-if="syntaxErr.lineNumber">Line: {{syntaxErr.lineNumber}}</p>
-          <p v-if="syntaxErr.columnNumber">Column: {{syntaxErr.columnNumber}}</p>
-          <pre v-if="">{{syntaxErr.message}}</pre>
-          <pre v-if="">{{syntaxErr.stack}}</pre>
-        </div>
-      </div>
-
-      <div class="info">
-        Where
-        <pre>{{filters}}</pre>
-
-        Where moTable
-        <pre>{{moTable.where}}</pre>
-      </div>
-
-      <div class="info">
-        OrderBy
-        <pre>{{moOrder}}</pre>
-      </div>
-    </div>
-  `,
+  template: '<div>:)</div>'
+  // template: `
+  //   <div>
+  //     <h1>Local Table</h1>
+  //     <div class="info">
+  //       <span v-for="column in columns">
+  //         <input type="checkbox" :value="column" v-model="select"> {{column}}
+  //       </span>
+  //       {{select}}
+  //     </div>
+  //     <div class="info show">
+  //       <span>Show</span>
+  //       <select v-model="limit">
+  //         <option v-for="limit in limits" :value="limit">{{limit}}</option>
+  //       </select>
+  //     </div>
+  //     <table class="players">
+  //       <thead>
+  //         <th v-mo-toggle-orderby="column[0]" :key="column[1]" v-for="column in moSelectedColumns"
+  //           :class="moColumnOrder(column[0]) !== null ? 'mo-' + moColumnOrder(column[0]) : ''">
+  //           {{column[0]}}
+  //         </th>
+  //       </thead>
+  //       <tbody>
+  //         <tr v-for="user in moDisplayed">
+  //           <td :key="column[1]" v-for="column in moSelectedColumns">{{user[column[0]]}}</td>
+  //         </tr>
+  //       </tbody>
+  //     </table>
+  //
+  //     <div class="info">
+  //       <button @click="moPrevPage" :disabled="moCurPage <= 0">Prev</button>
+  //       <button @click="moNextPage" :disabled="moCurPage >= (moNumPages - 1)">Next</button>
+  //       <div>NumResults: {{moNumResults}}, NumPages: {{moNumPages}}, Current page: {{moCurPage}}</div>
+  //     </div>
+  //
+  //     <div class="info">
+  //       <button @click="addFilter">Add filter</button>
+  //
+  //       <div class="filter" v-for="(filter, index) in filters">
+  //         <select v-model="filter.left">
+  //           <option v-for="column in columns" :value="column">{{column}}</option>
+  //         </select>
+  //         <select v-model="filter.op">
+  //           <option v-for="op in ops" :value="op">{{op}}</option>
+  //         </select>
+  //
+  //         <span v-if="filtersDescr[filter.left] && filtersDescr[filter.left].type === 'number'">
+  //           <input v-model.number="filter.right" type="number">
+  //         </span>
+  //         <span v-else>
+  //           <input v-model="filter.right" type="text">
+  //         </span>
+  //         <button @click="filters.splice(index, 1)">x</button>
+  //       </div>
+  //     </div>
+  //
+  //     <div class="info">
+  //       <textarea v-model="cFilter" placeholder="Complex query" rows="10"></textarea>
+  //       <div v-if="syntaxErr !== null">
+  //         <p v-if="syntaxErr.lineNumber">Line: {{syntaxErr.lineNumber}}</p>
+  //         <p v-if="syntaxErr.columnNumber">Column: {{syntaxErr.columnNumber}}</p>
+  //         <pre v-if="">{{syntaxErr.message}}</pre>
+  //         <pre v-if="">{{syntaxErr.stack}}</pre>
+  //       </div>
+  //     </div>
+  //
+  //     <div class="info">
+  //       Where
+  //       <pre>{{filters}}</pre>
+  //
+  //       Where moTable
+  //       <pre>{{moTable.where}}</pre>
+  //     </div>
+  //
+  //     <div class="info">
+  //       OrderBy
+  //       <pre>{{moOrder}}</pre>
+  //     </div>
+  //   </div>
+  // `,
 }

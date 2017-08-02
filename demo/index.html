@@ -6,13 +6,12 @@
     <title>mo-vue-table demo</title>
     <script src="https://unpkg.com/systemjs"></script>
     <script src="systemjs.config.js"></script>
-    <script>
-      SystemJS.import('./index.js').catch(console.log)
-    </script>
   </head>
   <body>
     <div id="app">
       <players-table :mo-table-data="players"></players-table>
     </div>
+
+    <script>SystemJS.import('./index.js').catch(console.log)</script>
   </body>
 </html>
