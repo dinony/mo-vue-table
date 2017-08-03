@@ -9,4 +9,4 @@ Vue.use(MoVueTable)
 
 Vue.component('players-table', PlayersTable)
 
-const app = new Vue({el: '#app', data: {players}})
+new Vue({el: '#app', data: {players}})
