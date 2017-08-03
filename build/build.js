@@ -28,7 +28,7 @@ const uglifyConf = {};
   {dest: resolve('dist/mo-vue-table.cjs.js'), format: 'cjs'},
   {dest: resolve('dist/mo-vue-table.esm.js'), format: 'es'}
 ].map(({dest, format}) => ({
-  entry: resolve('src/api.js'), dest, format, moduleName: 'moVueTable',
+  entry: resolve('src/api.js'), dest, format, moduleName: 'moVueTable', sourceMap: true,
   plugins: [
     nodeResolve(),
     cjs(),
@@ -36,19 +36,24 @@ const uglifyConf = {};
   ]
 })).forEach(c => {
   rollup.rollup(c).then(bundle => bundle.generate(c))
-    .then(({code}) => {
-      const appendBanner = c => `${banner}\n${c}`
+    .then((res) => {
+      const {code, map} = res
+
+      const prependBanner = c => `${banner}\n${c}`
+      const appendSourceMap = (c, filename) => `${c}\n//# sourceMappingURL=${filename}`
 
       if(isProd(c.dest)) {
         const uglified = uglify.minify(code, uglifyConf).code
-        fs.writeFileSync(c.dest, appendBanner(uglified))
+        fs.writeFileSync(c.dest, prependBanner(uglified))
 
         const zipped = zlib.gzipSync(uglified)
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(uglified.length)} (gzipped: ${prettyBytes(zipped.length)})`)
       } else {
-        fs.writeFileSync(c.dest, appendBanner(code))
+        const sourceMap = `${c.dest}.map`
+        fs.writeFileSync(c.dest, appendSourceMap(prependBanner(code), sourceMap))
+        fs.writeFileSync(sourceMap, map)
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(code.length)}`)
