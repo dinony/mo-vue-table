@@ -7,7 +7,7 @@ browserSync({
   reloadDelay: 200,
   reloadDebounce: 500,
   files: [
-    'demo/*.js', 'demo/*.html',
+    'demo/**/*.js', 'demo/**/*.html', 'demo/**/*.css',
     'src/*.js',
   ],
   watchOptions: {ignored: 'node_modules'},
