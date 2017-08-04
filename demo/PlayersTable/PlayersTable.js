@@ -9,45 +9,18 @@ export default {
     columns: ['id', 'name', 'age', 'points'],
     select: ['id', 'name', 'age', 'points'],
     selectOrdered: [['id', 1], ['name', 2], ['age', 3], ['points', 4]],
-    filters: [],
     filtersDescr: {
       'id': {type: 'number'},
       'name': {type: 'text'},
       'age': {type: 'number'},
       'points': {type: 'number'}
     },
-    // cFilter: `{
-    //   "points": {"$gte": 800}
-    // }`,
-    cFilter: `{
-      "name": "Onur",
-      "$or": [
-        {
-          "points": {
-            "$gt": 800
-          }
-        },
-        {
-          "age": {
-            "$lt": 18
-          }
-        },
-        {
-          "id": 70,
-          "age": 42
-        },
-        {
-          "name": "Florian",
-          "$or": [
-            {
-              "name": "Peter",
-              "age": {
-                "$gt": 12
-              }
-            }
-          ]
-        }
-      ]
+    query: `{
+     "points": {"$gt":600},
+     "$or": [
+      {"age": {"$lt":18}},
+      {"age": {"$gt":80}}
+     ]
     }`,
     syntaxErr: null,
     ops: ['=', '<>', '>', '<', '>=', '<=', 'in', 'not in', 'between', 'like'],
@@ -66,47 +39,38 @@ export default {
     limits: [3, 5, 10, 25, 50],
     limit: 5
   }),
+  created: function() {
+    // Init query
+    this.moSetWhereState(JSON.parse(this.query))
+  },
   computed: {
     selected: function() {
-      return this.selectOrdered.filter(so => this.select.find(s => s === so[0]));
+      return this.selectOrdered.filter(so => this.select.find(s => s === so[0]))
     }
   },
   methods: {
     addFilter: function() {
-      this.filters.push({left: this.moSelectedColumns[0][0], op: this.ops[0], right: null});
+      this.filters.push({left: this.moSelectedColumns[0][0], op: this.ops[0], right: null})
     }
   },
   watch: {
-    filters: {
-      handler: function(filters) {
-        // TODO:
-        this.moSetWhereState(query);
-      },
-      deep: true,
-      //immediate: true
-    },
-    cFilter: {
+    query: {
       handler: debounce(function() {
         try {
-          const cFilter = JSON.parse(this.cFilter);
-          this.syntaxErr = '';
-          this.moSetWhereState(cFilter);
+          const query = JSON.parse(this.query)
+          this.syntaxErr = ''
+          this.moSetWhereState(query)
         } catch(syntaxErr) {
-          this.syntaxErr = syntaxErr;
+          this.syntaxErr = syntaxErr
         }
-      }, 500),
-      immediate: true
+      }, 500)
     },
     selected: {
-      handler: function(select) {
-        this.moSetSelectState(select);
-      },
+      handler: function(selected) { this.moSetSelectState(selected) },
       immediate: true
     },
     limit: {
-      handler: function(limit) {
-        this.moSetLimit(limit);
-      },
+      handler: function(limit) { this.moSetLimit(limit) },
       immediate: true
     }
   },
@@ -133,8 +97,8 @@ export default {
           </th>
         </thead>
         <tbody>
-          <tr v-for="user in moDisplayed">
-            <td :key="column[1]" v-for="column in moSelectedColumns">{{user[column[0]]}}</td>
+          <tr v-for="player in moDisplayed">
+            <td :key="column[1]" v-for="column in moSelectedColumns">{{player[column[0]]}}</td>
           </tr>
         </tbody>
       </table>
@@ -146,42 +110,13 @@ export default {
       </div>
 
       <div class="info">
-        <button @click="addFilter">Add filter</button>
-
-        <div class="filter" v-for="(filter, index) in filters">
-          <select v-model="filter.left">
-            <option v-for="column in columns" :value="column">{{column}}</option>
-          </select>
-          <select v-model="filter.op">
-            <option v-for="op in ops" :value="op">{{op}}</option>
-          </select>
-
-          <span v-if="filtersDescr[filter.left] && filtersDescr[filter.left].type === 'number'">
-            <input v-model.number="filter.right" type="number">
-          </span>
-          <span v-else>
-            <input v-model="filter.right" type="text">
-          </span>
-          <button @click="filters.splice(index, 1)">x</button>
-        </div>
-      </div>
-
-      <div class="info">
-        <textarea v-model="cFilter" placeholder="Complex query" rows="10"></textarea>
+        <textarea v-model="query" placeholder="Complex query" rows="10"></textarea>
         <div v-if="syntaxErr !== null">
           <p v-if="syntaxErr.lineNumber">Line: {{syntaxErr.lineNumber}}</p>
           <p v-if="syntaxErr.columnNumber">Column: {{syntaxErr.columnNumber}}</p>
           <pre v-if="">{{syntaxErr.message}}</pre>
           <pre v-if="">{{syntaxErr.stack}}</pre>
         </div>
-      </div>
-
-      <div class="info">
-        Where
-        <pre>{{filters}}</pre>
-
-        Where moTable
-        <pre>{{moTable.where}}</pre>
       </div>
 
       <div class="info">
