@@ -1,6 +1,6 @@
 {
   "name": "mo-vue-table",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "dist/mo-vue-table.cjs.js",
   "module": "dist/mo-vue-table.esm.js",
