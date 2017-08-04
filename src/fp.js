@@ -10,5 +10,21 @@ export const reduceObj = (obj, reducer, init) => {
   return accum
 }
 
-// TODO:
-export const unzip = () => []
+export const unzip = zipped => {
+  if(zipped.length >= 1) {
+    const unzipped = []
+    const lenghts = zipped.map(z => z.length)
+    const max = lenghts.sort((x,y) => x > y ? -1 : 1)[0]
+
+    for(let i = 0; i < max; i++) {
+      unzipped[i] = []
+      for(let j = 0; j < zipped.length; j++) {
+        unzipped[i].push(zipped[j][i])
+      }
+    }
+
+    return unzipped
+  } else {
+    return []
+  }
+}
