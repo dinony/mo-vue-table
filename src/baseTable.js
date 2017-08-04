@@ -1,4 +1,4 @@
-import {fst, snd, reduceObj, unzip} from './fp'
+import {fst, snd, lst, reduceObj, unzip} from './fp'
 
 export const moBaseTable = {
   data: () => {
@@ -35,9 +35,9 @@ export const moBaseTable = {
         }
       }
 
-      orderByArr.sort((o1, o2) => snd(o1) > snd(o2))
+      orderByArr.sort((o1, o2) => lst(o1) > lst(o2) ? 1 : -1)
 
-      const orderByColumns = orderByArr.map(o => [fst(o), o[1]])
+      const orderByColumns = orderByArr.map(o => [fst(o), snd(o)])
 
       return unzip(orderByColumns)
     },
