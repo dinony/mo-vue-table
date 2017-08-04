@@ -1,5 +1,5 @@
 export const fst = arr => arr[0]
-export const snd = arr => arr[2]
+export const snd = arr => arr[1]
 export const lst = arr => arr[arr.length-1]
 
 export const reduceObj = (obj, reducer, init) => {
