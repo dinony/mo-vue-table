@@ -7,10 +7,11 @@
   "unpkg": "dist/mo-vue-table.js",
   "scripts": {
     "build": "node build/build.js",
-    "lint": "npm run lint:src && npm run lint:build && npm run lint:demo",
+    "lint": "npm run lint:src && npm run lint:build && npm run lint:demo && npm run lint:tools",
     "lint:src": "eslint src",
     "lint:build": "eslint build",
     "lint:demo": "eslint demo",
+    "lint:tools": "eslint tools",
     "serve:demo": "node tools/browserSync.js"
   },
   "files": [

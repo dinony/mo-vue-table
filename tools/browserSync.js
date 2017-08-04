@@ -1,8 +1,8 @@
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync')
 
 browserSync({
   open: false,
-  logLevel: "debug",
+  logLevel: 'debug',
   logFileChanges: true,
   reloadDelay: 200,
   reloadDebounce: 500,
@@ -12,4 +12,4 @@ browserSync({
   ],
   watchOptions: {ignored: 'node_modules'},
   server: {baseDir: './',directory: true}
-});
+})
