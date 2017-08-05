@@ -30,9 +30,7 @@ export const moBaseTable = {
 
       const orderByArr = []
       for(const c in orderByState) {
-        if(this.moTable.select.find(selected => selected[0] === c)) {
-          orderByArr.push([c, fst(orderByState[c]), snd(orderByState[c])])
-        }
+        orderByArr.push([c, fst(orderByState[c]), snd(orderByState[c])])
       }
 
       orderByArr.sort((o1, o2) => lst(o1) > lst(o2) ? 1 : -1)
