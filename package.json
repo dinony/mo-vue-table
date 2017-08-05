@@ -21,7 +21,7 @@
   "engines": {
     "node": ">=6.10.3"
   },
-  "author": "Onur Dogangönül",
+  "author": "Onur Dogangönül <contact@dinony.com>",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4",
