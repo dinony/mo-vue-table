@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
-SystemJS.config({
+System.config({
   paths: {
     'npm:': 'https://unpkg.com/'
   },

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>mo-vue-table demo</title>
-    <script src="https://unpkg.com/systemjs"></script>
+    <script src="https://unpkg.com/systemjs@0.20.19/dist/system.js"></script>
     <script src="systemjs.dist.config.js"></script>
   </head>
   <body>
@@ -12,6 +12,6 @@
       <players-table :mo-table-data="players"></players-table>
     </div>
 
-    <script>SystemJS.import('./index.js').catch(console.log)</script>
+    <script>System.import('./index.js').catch(console.log)</script>
   </body>
 </html>
